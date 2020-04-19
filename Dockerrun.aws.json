@@ -1,0 +1,7 @@
+{
+  "AWSEBDockerrunVersion": "1",
+  "Image": {
+    "Name": "alexjamesmalcolm/bid-euchre-http-game-engine"
+  },
+  "Ports": [{ "ContainerPort": 3000 }]
+}
