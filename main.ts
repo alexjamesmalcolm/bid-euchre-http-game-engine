@@ -59,7 +59,7 @@ class StartGameResource extends Drash.Http.Resource {
 }
 
 const server = new Drash.Http.Server({
-  address: "localhost:3000",
+  address: "0.0.0.0:3000",
   response_output: "application/json",
   resources: [ChooseOptionResource, GetOptionsResource, StartGameResource],
 });
