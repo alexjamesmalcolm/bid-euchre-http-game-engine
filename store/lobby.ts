@@ -4,10 +4,10 @@ import { uuid, LobbyPlayer } from "../deps.ts";
 export class Lobby implements StoredObject {
   readonly id: string = uuid.generate();
   players: LobbyPlayer[] = [];
-  lobbyLeader: LobbyPlayer;
+  lobbyLeader: string;
   constructor(leader: LobbyPlayer) {
     this.players = [leader];
-    this.lobbyLeader = leader;
+    this.lobbyLeader = leader.name;
   }
 
   public get isReady(): boolean {
