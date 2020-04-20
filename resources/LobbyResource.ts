@@ -3,6 +3,11 @@ import { lobbyStore, Lobby } from "../store/lobby.ts";
 
 export class LobbyResource extends Drash.Http.Resource {
   static paths = ["/lobby", "/lobby/", "/lobby/:lobby_id", "/lobby/:lobby_id/"];
+  public OPTIONS() {
+    this.response.status_code = 200;
+    this.response.headers.append("Allow", "*");
+    return this.response;
+  }
   public GET() {
     const lobbyId: string = this.request.getPathParam("lobby_id");
     if (lobbyId) {

@@ -10,6 +10,11 @@ export class GameResource extends Drash.Http.Resource {
     `/game/:${GameResource.gameIdKey}`,
     `/game/:${GameResource.gameIdKey}/`,
   ];
+  public OPTIONS() {
+    this.response.status_code = 200;
+    this.response.headers.append("Allow", "*");
+    return this.response;
+  }
   public GET() {
     const gameId: string = this.request.getPathParam(GameResource.gameIdKey);
     if (gameId) {
