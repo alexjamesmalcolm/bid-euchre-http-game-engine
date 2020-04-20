@@ -6,6 +6,8 @@ import { StatusResource } from "./resources/StatusResource.ts";
 class CorsMiddleWare extends Drash.Http.Middleware {
   run() {
     this.response?.headers.append("Access-Control-Allow-Origin", "*");
+    this.response?.headers.append("Access-Control-Allow-Methods", "*");
+    this.response?.headers.append("Access-Control-Allow-Headers", "*");
   }
 }
 
