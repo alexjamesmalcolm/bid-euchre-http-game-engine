@@ -5,10 +5,10 @@ import { isPlayerPosition } from "../utils.ts";
 export class GameResource extends Drash.Http.Resource {
   static gameIdKey = "game_id";
   static paths = [
-    "/game",
-    "/game/",
-    `/game/:${GameResource.gameIdKey}`,
-    `/game/:${GameResource.gameIdKey}/`,
+    "/api/game",
+    "/api/game/",
+    `/api/game/:${GameResource.gameIdKey}`,
+    `/api/game/:${GameResource.gameIdKey}/`,
   ];
   public OPTIONS() {
     this.response.status_code = 200;

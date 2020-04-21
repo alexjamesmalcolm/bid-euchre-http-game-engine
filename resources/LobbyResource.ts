@@ -2,7 +2,12 @@ import { Drash, LobbyPlayer } from "../deps.ts";
 import { lobbyStore, Lobby } from "../store/lobby.ts";
 
 export class LobbyResource extends Drash.Http.Resource {
-  static paths = ["/lobby", "/lobby/", "/lobby/:lobby_id", "/lobby/:lobby_id/"];
+  static paths = [
+    "/api/lobby",
+    "/api/lobby/",
+    "/api/lobby/:lobby_id",
+    "/api/lobby/:lobby_id/",
+  ];
   public OPTIONS() {
     this.response.status_code = 200;
     this.response.headers.append("Allow", "*");
