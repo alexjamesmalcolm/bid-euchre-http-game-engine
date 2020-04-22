@@ -35,15 +35,27 @@ export class LobbyResource extends Drash.Http.Resource {
     this.response.body = { lobby };
     return this.response;
   }
-  public PUT() {
-    const lobby: Lobby = this.request.getBodyParam("lobby");
-    if (lobby) {
-      lobbyStore.put(lobby);
-      this.response.body = { lobby };
-    } else {
-      this.response.status_code = 400;
-      this.response.body = { error: "Expected a lobby param on JSON body" };
+  public PATCH() {
+    const lobbyId: string = this.request.getPathParam("lobby_id");
+    if (!lobbyId) {
+      this.response.status_code = 405;
+      return this.response;
     }
+    const players = this.request.getBodyParam("players");
+    if (!players) {
+      this.response.status_code = 400;
+      this.response.body = { error: "Expected a players param on JSON body." };
+      return this.response;
+    }
+    const lobby = lobbyStore.get(lobbyId);
+    if (!lobby) {
+      this.response.status_code = 404;
+      this.response.body = { error: "Lobby not found" };
+      return this.response;
+    }
+    lobby.setPlayers(players);
+    lobbyStore.put(lobby);
+    this.response.body = { lobby };
     return this.response;
   }
   public DELETE() {

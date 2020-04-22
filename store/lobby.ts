@@ -1,13 +1,23 @@
 import { Store, StoredObject } from "./base.ts";
 import { uuid, LobbyPlayer } from "../deps.ts";
 
-export class Lobby implements StoredObject {
+export interface LobbyData extends StoredObject {
+  id: string;
+  players: LobbyPlayer[];
+  lobbyLeader: string;
+}
+
+export class Lobby implements LobbyData {
   readonly id: string = uuid.generate();
   players: LobbyPlayer[] = [];
   lobbyLeader: string;
   constructor(leader: LobbyPlayer) {
     this.players = [leader];
     this.lobbyLeader = leader.name;
+  }
+
+  public setPlayers(players: LobbyPlayer[]) {
+    this.players = players;
   }
 
   public get isReady(): boolean {
