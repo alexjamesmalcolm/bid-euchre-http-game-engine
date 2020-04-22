@@ -16,7 +16,13 @@ export class LobbyResource extends Drash.Http.Resource {
   public GET() {
     const lobbyId: string = this.request.getPathParam("lobby_id");
     if (lobbyId) {
-      this.response.body = { lobby: lobbyStore.get(lobbyId) };
+      const lobby = lobbyStore.get(lobbyId);
+      if (!lobby) {
+        this.response.status_code = 404;
+        this.response.body = { error: "Lobby not found" };
+        return this.response;
+      }
+      this.response.body = { lobby };
     } else {
       this.response.body = { lobbies: lobbyStore.getAll() };
     }
@@ -51,6 +57,11 @@ export class LobbyResource extends Drash.Http.Resource {
     if (!lobby) {
       this.response.status_code = 404;
       this.response.body = { error: "Lobby not found" };
+      return this.response;
+    }
+    if (players.length > 4) {
+      this.response.status_code = 400;
+      this.response.body = { error: "Too many players in Lobby" };
       return this.response;
     }
     lobby.setPlayers(players);
