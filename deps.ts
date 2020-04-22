@@ -10,5 +10,4 @@ export {
   PlayerPosition,
 } from "https://raw.github.com/alexjamesmalcolm/deno-bid-euchre-engine/master/mod.ts";
 export { Drash } from "https://deno.land/x/drash@v0.41.0/mod.ts";
-import { v4 } from "https://deno.land/std/uuid/mod.ts";
-export const uuid = v4;
+export { v4 as uuid } from "https://deno.land/std/uuid/mod.ts";
