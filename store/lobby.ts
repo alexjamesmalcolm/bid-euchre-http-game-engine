@@ -1,16 +1,19 @@
 import { Store, StoredObject } from "./base.ts";
 import { uuid, LobbyPlayer } from "../deps.ts";
+import { Game } from "./game.ts";
 
 export interface LobbyData extends StoredObject {
   id: string;
   players: LobbyPlayer[];
   lobbyLeader: string;
+  game?: Game;
 }
 
 export class Lobby implements LobbyData {
   readonly id: string = uuid.generate();
   players: LobbyPlayer[] = [];
   lobbyLeader: string;
+  game?: Game;
   constructor(leader: LobbyPlayer) {
     this.players = [leader];
     this.lobbyLeader = leader.name;
@@ -64,7 +67,7 @@ export class Lobby implements LobbyData {
   }
   removePlayer(player: LobbyPlayer) {
     this.players = this.players.filter(
-      (p: LobbyPlayer) => p.name !== player.name,
+      (p: LobbyPlayer) => p.name !== player.name
     );
   }
   swapPlayers(a: LobbyPlayer, b: LobbyPlayer) {
@@ -72,6 +75,11 @@ export class Lobby implements LobbyData {
     const bSwapped: LobbyPlayer = { ...b, position: a.position };
     this.updatePlayerPosition(aSwapped);
     this.updatePlayerPosition(bSwapped);
+  }
+
+  startGame(): Game {
+    this.game = new Game(this);
+    return this.game;
   }
 }
 

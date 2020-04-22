@@ -59,7 +59,7 @@ export class GameResource extends Drash.Http.Resource {
       this.response.body = { error: `Could not find lobby of id: ${lobbyId}` };
       return this.response;
     }
-    const game = new Game(lobby);
+    const game = lobby.startGame();
     gameStore.put(game);
     this.response.body = { game };
     return this.response;
