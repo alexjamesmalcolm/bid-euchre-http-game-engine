@@ -37,7 +37,9 @@ export class GameResource extends Drash.Http.Resource {
         this.response.body = { game };
       }
     } else {
-      this.response.body = { games: gameStore.getAll() };
+      this.response.body = {
+        games: gameStore.getAll().map(({ id }) => ({ id })),
+      };
     }
     return this.response;
   }
