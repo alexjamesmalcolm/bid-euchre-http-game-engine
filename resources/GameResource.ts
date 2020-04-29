@@ -23,7 +23,7 @@ export class GameResource extends Drash.Http.Resource {
         this.response.status_code = 404;
         return this.response;
       }
-      const position: string = this.request.getUrlQueryParam("position");
+      const position: string = `${this.request.getUrlQueryParam("position")}`;
       if (position) {
         if (isPlayerPosition(position)) {
           const options = getOptions(game.phase, position);
@@ -64,6 +64,15 @@ export class GameResource extends Drash.Http.Resource {
     const game = lobby.startGame();
     gameStore.put(game);
     this.response.body = { game };
+    return this.response;
+  }
+  public DELETE() {
+    const gameId: string = this.request.getPathParam(GameResource.gameIdKey);
+    if (!gameId) {
+      this.response.status_code = 405;
+      return this.response;
+    }
+    gameStore.delete(gameId);
     return this.response;
   }
   public PATCH() {
