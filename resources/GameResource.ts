@@ -23,7 +23,7 @@ export class GameResource extends Drash.Http.Resource {
         this.response.status_code = 404;
         return this.response;
       }
-      const position: string = `${this.request.getUrlQueryParam("position")}`;
+      const position: string = this.request.getUrlQueryParam("position");
       if (position) {
         if (isPlayerPosition(position)) {
           const options = getOptions(game.phase, position);
